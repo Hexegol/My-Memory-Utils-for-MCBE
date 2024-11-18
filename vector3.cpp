@@ -1,5 +1,5 @@
 #include "vector3.h"
-#include <cmath>  // Pour std::isfinite()
+#include <cmath>  
 #include <iostream>
 Vector3 Vector3::operator-(const Vector3& other) const
 {
@@ -21,7 +21,7 @@ bool Vector3::operator!=(const Vector3& other) const {
     return x_ != other.x_ || y_ != other.y_ || z_ != other.z_;
 }
 
-// Nouvelle méthode isValid() pour vérifier si les coordonnées du vecteur sont valides
+
 bool Vector3::isValid() const {
     return std::isfinite(x_) && std::isfinite(y_) && std::isfinite(z_);
 }
