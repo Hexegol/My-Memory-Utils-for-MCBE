@@ -45,13 +45,11 @@ public:
         T value = {};
         DWORD oldProtect = 0;
 
-        // Essayez de modifier les permissions d'accès à la mémoire
         if (VirtualProtectEx(processHandle, (LPVOID)address, sizeof(T), PAGE_EXECUTE_READWRITE, &oldProtect)) {
             if (!ReadProcessMemory(processHandle, (LPCVOID)address, &value, sizeof(T), nullptr)) {
                 std::cerr << "Failed to virtual protect memory (utils)" << std::endl;
             }
         } else {
-            // Si la modification des permissions échoue, essayez de lire directement
             if (!ReadProcessMemory(processHandle, (LPCVOID)address, &value, sizeof(T), nullptr)) {
                 std::cerr << "Failed to read memory (utils)" << std::endl;
             }
