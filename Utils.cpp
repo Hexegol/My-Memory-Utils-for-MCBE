@@ -29,26 +29,24 @@ bool isValidString(const wchar_t* str) {
         while (*temp != L'\0') {
             ++temp;
         }
-        return true; // La chaîne est valide
+        return true; 
     } catch (...) {
-        return false; // Erreur inattendue
+        return false; 
     }
 }
 
 bool Utils::wcscmp(const wchar_t *str, const wchar_t *text) {
-    // Vérification des deux chaînes avec isValidString
     if (!isValidString(str) || !isValidString(text)) {
-        return false; // Chaîne invalide, retournez false ou gérez comme vous le souhaitez
+        return false; 
     }
 
-    // Comparaison sécurisée
-    return ::wcscmp(str, text) == 0; // Utilisation explicite de la version standard
+    return ::wcscmp(str, text) == 0; 
 }
 bool Utils::compareStrings(const char* str, const char* text) {
     if (!str || !text) {
-        return false; // Vérifie la validité des chaînes
+        return false; 
     }
-    return strcmp(str, text) == 0; // Utilise strcmp pour la comparaison
+    return strcmp(str, text) == 0; 
 }
 
 DWORD Utils::GetPID(const char* ProcessName) {
@@ -305,7 +303,7 @@ std::string WideToString(const std::wstring& wstr) {
 uintptr_t Utils::FindSignature(std::vector<int> signature) {
     HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 
-    PROCESSENTRY32 pEntry; // Structure générique
+    PROCESSENTRY32 pEntry; 
     pEntry.dwSize = sizeof(pEntry);
 
     const char* target = "Minecraft.Windows.exe";
@@ -317,7 +315,7 @@ uintptr_t Utils::FindSignature(std::vector<int> signature) {
                 processId = pEntry.th32ProcessID;
                 break;
             }
-        } while (Process32Next(hSnapshot, &pEntry)); // Utilisation générique
+        } while (Process32Next(hSnapshot, &pEntry)); 
     }
 
     hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, processId);
@@ -328,7 +326,7 @@ uintptr_t Utils::FindSignature(std::vector<int> signature) {
     if (Module32First(hSnapshot, &mEntry)) {
         do {
             if (strcmp(mEntry.szModule, target) == 0) break;
-        } while (Module32Next(hSnapshot, &mEntry)); // Utilisation générique
+        } while (Module32Next(hSnapshot, &mEntry)); 
     }
 
     hSnapshot = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
